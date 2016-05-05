@@ -17,7 +17,7 @@
 )
 
 # Brightcove
-> 
+> Thin wrapper over a brightcove video player
 
 ## Usage
 

@@ -1,7 +1,7 @@
 {
   "name": "@economist/component-brightcove",
   "version": "0.0.0-development",
-  "description": "",
+  "description": "Thin wrapper over a brightcove video player",
   "homepage": "https://github.com/economist-components/component-brightcove",
   "bugs": {
     "url": "https://github.com/economist-components/component-brightcove/issues"
