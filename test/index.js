@@ -2,33 +2,67 @@ import 'babel-polyfill';
 import Brightcove from '../src';
 import React from 'react';
 import chai from 'chai';
+import chaiSpies from 'chai-spies';
 import chaiEnzyme from 'chai-enzyme';
 import { mount } from 'enzyme';
-chai.use(chaiEnzyme()).should();
-describe('Brightcove', () => {
+chai.use(chaiEnzyme()).use(chaiSpies).should();
 
-  it('renders a React element', () => {
-    React.isValidElement(<Brightcove />).should.equal(true);
+describe('brightcove video', () => {
+  const originalMathRandom = Math.random;
+  let getBrightcoveExperience = null;
+  let brightcove = null;
+  beforeEach(() => {
+    Math.random = () => 0.5;
+    getBrightcoveExperience = () => Promise.resolve(brightcove);
+    brightcove = {
+      createExperiences: chai.spy(),
+      removeExperience: chai.spy(),
+    };
   });
-
-  describe('Rendering', () => {
-    let rendered = null;
-    let brightcove = null;
+  afterEach(() => {
+    Math.random = originalMathRandom;
+  });
+  it('generates a random experienceID unless some experienceID is passed', () => {
+    const experienceID = `BrightCoveExperience_${ (0.5 * 1e6).toString(16) }`;
+    Brightcove.defaultProps.experienceID.should.equal(experienceID);
+  });
+  it('renders an object element with params', () => {
+    const wrapper = mount(
+      <Brightcove
+        getBrightcoveExperience={getBrightcoveExperience}
+        width={1234}
+        height={12345}
+        videoID="video-id"
+        playerID="player-id"
+        playerKey="player-key"
+        labels={'http://example.com/labels.xml'}
+      />
+    );
+    wrapper.find('param[name="width"]').should.have.attr('value', '1234');
+    wrapper.find('param[name="height"]').should.have.attr('value', '12345');
+    wrapper.find('param[name="playerID"]').should.have.attr('value', 'player-id');
+    wrapper.find('param[name="playerKey"]').should.have.attr('value', 'player-key');
+    wrapper.find('param[name="@videoPlayer"]').should.have.attr('value', 'video-id');
+    wrapper.find('param[name="labels"]').should.have.attr('value', 'http://example.com/labels.xml');
+  });
+  describe('lifetime methods', () => {
+    let player = null;
     beforeEach(() => {
-      rendered = mount(<Brightcove />);
-      brightcove = rendered.find('.brightcove');
+      player = new Brightcove({}, {}, {});
+      player.props.getBrightcoveExperience = getBrightcoveExperience;
     });
-
-    it('renders a top level div.brightcove', () => {
-      brightcove.should.have.tagName('div');
-      brightcove.should.have.className('brightcove');
+    it('set the brightcove experience up and assign the API to the instance', () => {
+      player.componentDidMount();
+      return player.loadBrightcoveScript().then(() => {
+        brightcove.createExperiences.should.have.been.called.once();
+        player.brightcove.should.equal(brightcove);
+      });
     });
-
-    xit('renders <FILL THIS IN>', () => {
-      brightcove.should.have.exactly(1).descendants('.the-descendent-class');
-      brightcove.find('.the-descendent-class').should.have.tagName('TAG');
+    it('tear down the brightcove experience', () => {
+      player.brightcove = brightcove;
+      player.props.experienceID = 'experience-id';
+      player.componentWillUnmount();
+      brightcove.removeExperience.should.have.been.called.with('experience-id');
     });
-
   });
-
 });
