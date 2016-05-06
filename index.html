@@ -251,7 +251,7 @@ pre[class*&#x3D;&quot;language-&quot;] {
         Promise<span class="token punctuation" >.</span><span class="token function" >reject</span><span class="token punctuation" >(</span><span class="token string" >'brightcove loaded, but window.brightcove is unavailable'</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
     <span class="token punctuation" >}</span>
     <span class="token keyword" >const</span> promiseForBrightcove <span class="token operator" >=</span> <span class="token function" >promisescript</span><span class="token punctuation" >(</span><span class="token punctuation" >{</span>
-      url<span class="token punctuation" >:</span> <span class="token string" >'https://admin.brightcove.com/js/BrightcoveExperiences.js'</span><span class="token punctuation" >,</span>
+      url<span class="token punctuation" >:</span> '<span class="token comment" spellcheck="true">//admin.brightcove.com/js/BrightcoveExperiences.js',</span>
       type<span class="token punctuation" >:</span> <span class="token string" >'script'</span><span class="token punctuation" >,</span>
       exposed<span class="token punctuation" >:</span> <span class="token string" >'brightcove'</span><span class="token punctuation" >,</span>
     <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >.</span><span class="token function" >then</span><span class="token punctuation" >(</span>getBrightcoveFromWindow<span class="token punctuation" >)</span><span class="token punctuation" >;</span>
