@@ -74,9 +74,7 @@ export default class Brightcove extends React.Component {
   }
 }
 
-/* eslint-disable dot-notation */
-if (process.env['NODE_ENV'] !== 'production') {
-  /* eslint-enable dot-notation */
+if (process.env.NODE_ENV !== 'production') {
   Brightcove.propTypes = {
     experienceID: React.PropTypes.string,
     videoID: React.PropTypes.string.isRequired,
