@@ -10,7 +10,7 @@ function getBrightcoveFromWindow() {
     Promise.reject('brightcove loaded, but window.brightcove is unavailable');
 }
 const promiseForBrightcove = promisescript({
-  url: '//admin.brightcove.com/js/BrightcoveExperiences.js',
+  url: 'https://sadmin.brightcove.com/js/BrightcoveExperiences.js',
   type: 'script',
   exposed: 'brightcove',
 }).then(getBrightcoveFromWindow);
