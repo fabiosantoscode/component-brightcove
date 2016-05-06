@@ -106,6 +106,7 @@
     ]
   },
   "dependencies": {
+    "lodash.uniqueid": "^4.0.0",
     "react": "^0.14.8"
   },
   "devDependencies": {

@@ -1,14 +1,12 @@
 import React from 'react';
+import lodashUniqid from 'lodash.uniqueid';
 
-const aBigNumber = 1e6;
-const theBaseOfBaseSixteen = 16;
 const arbitraryDefaultWidth = 595;
 const arbitraryDefaultHeight = 335;
 export default class Brightcove extends React.Component {
   static get defaultProps() {
-    const randHex = Math.floor(Math.random() * aBigNumber).toString(theBaseOfBaseSixteen);
     return {
-      experienceID: `BrightCoveExperience_${ randHex }`,
+      experienceID: lodashUniqid('BrightCoveExperience_'),
     };
   }
   constructor(args) {

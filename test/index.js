@@ -8,23 +8,14 @@ import { mount } from 'enzyme';
 chai.use(chaiEnzyme()).use(chaiSpies).should();
 
 describe('brightcove video', () => {
-  const originalMathRandom = Math.random;
   let getBrightcoveExperience = null;
   let brightcove = null;
   beforeEach(() => {
-    Math.random = () => 0.5;
     getBrightcoveExperience = () => Promise.resolve(brightcove);
     brightcove = {
       createExperiences: chai.spy(),
       removeExperience: chai.spy(),
     };
-  });
-  afterEach(() => {
-    Math.random = originalMathRandom;
-  });
-  it('generates a random experienceID unless some experienceID is passed', () => {
-    const experienceID = `BrightCoveExperience_${ (0.5 * 1e6).toString(16) }`;
-    Brightcove.defaultProps.experienceID.should.equal(experienceID);
   });
   it('renders an object element with params', () => {
     const wrapper = mount(
