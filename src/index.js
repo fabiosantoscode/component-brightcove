@@ -50,6 +50,7 @@ export default class Brightcove extends React.Component {
       labels,
       width = arbitraryDefaultWidth,
       height = arbitraryDefaultHeight,
+      secureConnections = true,
     } = this.props;
     return (
       <div className="brightcove" style={{ width, height }}>
@@ -68,6 +69,7 @@ export default class Brightcove extends React.Component {
           <param name="playerID" value={playerID} />
           <param name="playerKey" value={playerKey} />
           <param name="@videoPlayer" value={videoID} />
+          <param name="secureConnections" value={String(secureConnections)} />
         </object>
       </div>
     );
@@ -83,6 +85,7 @@ if (process.env.NODE_ENV !== 'production') {
     labels: React.PropTypes.string.isRequired,
     width: React.PropTypes.number,
     height: React.PropTypes.number,
+    secureConnections: React.PropTypes.bool,
     getBrightcoveExperience: React.PropTypes.func,
     onError: React.PropTypes.func,
   };
