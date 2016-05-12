@@ -70,6 +70,7 @@ export default class Brightcove extends React.Component {
           <param name="playerKey" value={playerKey} />
           <param name="@videoPlayer" value={videoID} />
           <param name="secureConnections" value={String(secureConnections)} />
+          <param name="secureHTMLConnections" value={String(secureConnections)} />
         </object>
       </div>
     );
